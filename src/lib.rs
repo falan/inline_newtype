@@ -12,7 +12,7 @@
 ///     }
 ///```
 /// for you.
-/// The v is the default public field.
+/// The ***v*** is the default public field.
 ///
 /// ```rust
 /// use inline_newtype::newtype;
@@ -43,7 +43,24 @@
 /// let user_home_directory = UserHomeDirectory { path_buf: PathBuf::from("hello")};
 /// assert_eq!(user_home_directory.path_buf, PathBuf::from("hello"));
 /// ```
+/// Transform from one newtype to another
+/// ```rust
+/// use inline_newtype::newtype;
+/// use std::path::PathBuf;
+/// newtype!(UserHomeDirectory, PathBuf);
+/// newtype!(UserRuntimeDirectory, PathBuf);
+/// let user_home_directory = UserHomeDirectory { v: PathBuf::from("hello") };
+/// let user_runtime_directory = UserRuntimeDirectory { v: PathBuf::from("hello") };
+/// fn transform_user_home_to_runtime_directory(
+///     mut user_home_directory: UserHomeDirectory,
+/// ) -> UserRuntimeDirectory {
+///     let mut runtime_dir = user_home_directory.v;
+///     runtime_dir.push("runtime_dir");
+///     UserRuntimeDirectory { v: runtime_dir }
+/// }
 ///
+
+/// ```
 /// You can also using curly brackets to declare the newtype.
 /// ```rust
 /// use inline_newtype::newtype;
@@ -112,40 +129,62 @@ mod tests {
     #[test]
     fn test_new_type() {
         newtype!(UserHomeDirectory, PathBuf);
-        let user_home_directory = UserHomeDirectory { v: PathBuf::from("hello") };
+        let user_home_directory = UserHomeDirectory {
+            v: PathBuf::from("hello"),
+        };
         assert_eq!(user_home_directory.v, PathBuf::from("hello"));
     }
-
 
     #[test]
     fn test_type_not_equal() {
         newtype!(UserHomeDirectory, PathBuf);
         newtype!(UserRuntimeDirectory, PathBuf);
-        let user_home_directory = UserHomeDirectory { v: PathBuf::from("hello") };
-        let user_runtime_directory = UserRuntimeDirectory { v: PathBuf::from("hello") };
+        let user_home_directory = UserHomeDirectory {
+            v: PathBuf::from("hello"),
+        };
+        let user_runtime_directory = UserRuntimeDirectory {
+            v: PathBuf::from("hello"),
+        };
         fn test_newtype_type_func(user_home_directory: UserHomeDirectory) -> UserHomeDirectory {
             user_home_directory
         }
-        // test_newtype_type_func(user_runtime_directory); mismatch type
+    }
+
+    #[test]
+    fn test_transform_newtype() {
+        newtype!(UserHomeDirectory, PathBuf);
+        newtype!(UserRuntimeDirectory, PathBuf);
+        let user_home_directory = UserHomeDirectory {
+            v: PathBuf::from("hello"),
+        };
+        let user_runtime_directory = UserRuntimeDirectory {
+            v: PathBuf::from("hello"),
+        };
+
+        fn transform_user_home_to_runtime_directory(
+            mut user_home_directory: UserHomeDirectory,
+        ) -> UserRuntimeDirectory {
+            let mut runtime_dir = user_home_directory.v;
+            runtime_dir.push("runtime_dir");
+            UserRuntimeDirectory { v: runtime_dir }
+        }
     }
 
     #[test]
     fn test_field_name() {
         newtype!(UserHomeDirectory, PathBuf, path_buf);
-        let user_home_directory = UserHomeDirectory { path_buf: PathBuf::from("hello") };
+        let user_home_directory = UserHomeDirectory {
+            path_buf: PathBuf::from("hello"),
+        };
         assert_eq!(user_home_directory.path_buf, PathBuf::from("hello"))
     }
 
     #[test]
     fn test_curly_brackets_name() {
         newtype! {UserHomeDirectory, PathBuf, path_buf}
-        let user_home_directory = UserHomeDirectory { path_buf: PathBuf::from("hello") };
+        let user_home_directory = UserHomeDirectory {
+            path_buf: PathBuf::from("hello"),
+        };
         assert_eq!(user_home_directory.path_buf, PathBuf::from("hello"))
     }
 }
-//create new type of UserHomeDirectory  as PathBuf
-
-//create new type of UserHomeDirectory  as PathBuf
-// newtype!(UserRuntimeDirectory, PathBuf)
-
-// let user_runtime_directory = UserRuntimeDicr
