@@ -33,7 +33,7 @@ use inline_newtype::newtype;
 use std::path::PathBuf;
 newtype!(UserHomeDirectory, PathBuf, pub);
 ```
-///
+
 You also can change the field name if you want.
 ```rust
 use inline_newtype::newtype;
