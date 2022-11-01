@@ -58,7 +58,7 @@ fn transform_user_home_to_runtime_directory(
 }
 
 ```
-You can also using curly brackets to declare the newtype.
+You can also using braces to declare the newtype.
 ```rust
 use inline_newtype::newtype;
 use std::path::PathBuf;
