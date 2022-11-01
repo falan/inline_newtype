@@ -1,14 +1,16 @@
 # inline_newtype
 A rust newtype macro inspired by kotlin's inline class.
 When we use
-```rust newtype!(NewTypeOne, u32);```
+```rust 
+newtype!(NewTypeOne, u32);
+```
 It generate the struct
-``
+```
 #[derive(Debug, Clone)]
     struct UserHomeDirectory {
         pub v: u32,
     }
-``
+```
 for you.
 The ***v*** is the default public field.
 ```rust
