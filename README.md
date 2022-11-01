@@ -6,9 +6,9 @@ When we use
 It generate the struct
 ```
 #[derive(Debug, Clone)]
-    struct UserHomeDirectory {
-        pub v: u32,
-    }
+struct UserHomeDirectory {
+    pub v: u32,
+}
 ```
 for you.
 The v is the default public field.
