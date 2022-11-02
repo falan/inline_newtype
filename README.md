@@ -7,9 +7,9 @@ newtype!(NewTypeOne, u32);
 It generate the struct
 ```
 #[derive(Debug, Clone)]
-    struct NewTypeOne {
-        pub v: u32,
-    }
+struct NewTypeOne {
+    pub v: u32,
+}
 ```
 for you.
 The ***v*** is the default public field.
