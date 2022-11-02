@@ -5,7 +5,7 @@ When we use
 newtype!(NewTypeOne, u32);
 ```
 It generate the struct
-```
+```rust
 #[derive(Debug, Clone)]
 struct NewTypeOne {
     pub v: u32,
