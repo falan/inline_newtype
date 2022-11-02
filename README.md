@@ -7,7 +7,7 @@ newtype!(NewTypeOne, u32);
 It generate the struct
 ```
 #[derive(Debug, Clone)]
-    struct UserHomeDirectory {
+    struct NewTypeOne {
         pub v: u32,
     }
 ```
